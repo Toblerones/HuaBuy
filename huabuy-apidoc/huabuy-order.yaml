@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  description: "Huabuy"
+  version: "1.0.0"
+  title: "Dhuabuy - Order"
+  termsOfService: "https://github.com/Toblerones/kie-demo"
+  contact:
+    email: "toblerones@gmail.com"
+
+
+servers:
+  - url: https://{subdomain}.com{system}
+    description: Backend API
+    variables:
+      subdomain:
+        default: toblerones
+      version:
+        enum:
+          - v1
+          - v2
+        default: v1
+      system:
+        default: '/huabuy'
+
+paths:
+  /orders:
+    get:
+      summary: get order
+      tags:
+        - Orders
+      description: Return all orders
+      responses:
+        '200':    # status code
+          description: A JSON array of orders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOfOrder'
+  /order:
+    post:
+      requestBody:
+        description: create order
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInfo'
+      responses:
+        '201':
+          description: yes
+  /order/{customer}:
+    get:
+      parameters:
+        - in: path
+          name: customer
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: yes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderInfo'
+
+components:
+  schemas:
+    ListOfOrder:
+      type: array
+      items:
+        type: object
+        properties:
+          OrderInfo:
+            $ref: '#/components/schemas/OrderInfo'
+    OrderInfo:
+      title: Order Info
+      type: object
+      properties:
+        date:
+          type: string
+          description: date of order
+        customer:
+          type: string
+          description: customer name
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemInfo'
+    ItemInfo:
+      title: Item Info
+      type: object
+      properties:
+        item:
+          type: string
+          description: purchased item name
+        originalPrice:
+          type: string
+          description: Original Price
+
+
+
+
+
+
+

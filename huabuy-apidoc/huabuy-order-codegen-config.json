@@ -1,0 +1,10 @@
+{
+  "groupId" : "com.huabuy",
+  "artifactId" : "huabuy-order",
+  "apiPackage" : "com.huabuy.controllers",
+  "modelPackage" : "com.huabuy.models",
+  "configPackage": "com.huabuy.configuration",
+  "basePackage" : "com.huabuy",
+  "library" : "spring-boot"
+
+}
